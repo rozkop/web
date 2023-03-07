@@ -1,5 +1,9 @@
 in progress...
 
+### Copy env file
+```sh
+cp .env.example .env
+```
 ### Start up and setup container
 ```sh
 docker compose up -d
