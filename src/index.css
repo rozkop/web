@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+        width: 13px;
+    }
+    .scrollbar::-webkit-scrollbar-track {
+        background: #e5e7eb;
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: #b7b8bc;
+        height: 5%;
+    }
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #a0a1a4;
+    }
+
+    .dark-scrollbar::-webkit-scrollbar {
+        width: 13px;
+    }
+    .dark-scrollbar::-webkit-scrollbar-track {
+        background: #141515;
+    }
+    .dark-scrollbar::-webkit-scrollbar-thumb {
+        background: #2e2f2f;
+        height: 40%;
+    }
+    .dark-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #272724;
+    }
+
+    .pulsating-text {
+        margin-left: 5px;
+        width: 80px;
+        height: 14px;
+        animation: pulse 1s infinite;
+    }
+
+
+    .dark-pulsating-text {
+        margin-left: 5px;
+        width: 80px;
+        height: 14px;
+        animation: dark-pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            background-color: #ffffff;
+        }
+        25% {
+            background-color: #f5f5f5;
+        }
+        50% {
+            background-color: #ffffff;
+        }
+        75% {
+            background-color: #f5f5f5;
+        }
+        100% {
+            background-color: #ffffff;
+        }
+    }
+
+    @keyframes dark-pulse {
+        0% {
+            background-color: #1a1a1b;
+        }
+        25% {
+            background-color: #242425;
+        }
+        50% {
+            background-color: #2d2d2f;
+        }
+        75% {
+            background-color: #242425;
+        }
+        100% {
+            background-color: #1a1a1b;
+        }
+    }
+}
