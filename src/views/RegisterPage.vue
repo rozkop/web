@@ -59,8 +59,8 @@ const router = useRouter();
 const user = reactive({
   name: 'Gall Anonim',
   email: 'gall@anonim.pl',
-  password: 'password2',
-  password_confirmation: 'password2',
+  password: 'password',
+  password_confirmation: 'password',
 })
 
 const errors = ref([]);
@@ -70,8 +70,8 @@ function signUp() {
   errors.value = '';
   isLoading.value = true;
 
-  axios.get('http://localhost:8000/sanctum/csrf-cookie');
-  axios.post('http://localhost:8000/api/register', user).then(response => {
+  axios.get('/sanctum/csrf-cookie');
+  axios.post('/api/register', user).then(response => {
     if (response.data.data.token) {
       isLoading.value = false;
       $cookies.set('auth_token', response.data.data.token);

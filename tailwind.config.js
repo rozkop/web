@@ -19,6 +19,7 @@ module.exports = {
       xl: "1.2rem",
       xxl: "1.3rem",
       xxxl: '1.4rem',
+      giant: '4rem',
     },
   },
   plugins: [],

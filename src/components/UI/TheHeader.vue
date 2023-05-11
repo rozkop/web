@@ -46,12 +46,15 @@
                 alt=""
               />
               <p
-                  v-if="route.params.community_name"
+                v-if="route.params.community_name"
                 class="mr-2 hidden truncate xxs:inline-block xs:hidden md:inline-block"
               >
                 c/{{ route.params.community_name }}
               </p>
-              <p v-else class="mr-2 hidden truncate xxs:inline-block xs:hidden md:inline-block">
+              <p
+                v-else
+                class="mr-2 mt-1 hidden truncate xxs:inline-block xs:hidden md:inline-block"
+              >
                 Home
               </p>
             </div>
@@ -104,16 +107,20 @@
                 c/poland
               </p>
             </div>
-            <div class="mt-4 flex flex-col w-full space-y-0.5 px-4">
+            <div class="mt-4 flex w-full flex-col space-y-0.5 px-4">
               <p class="px-2 py-0.5 text-xxs font-semibold text-gray-400">
                 FEEDS
               </p>
-              <router-link @click="openMenu" :to="{name: 'new'}"
+              <router-link
+                @click="openMenu"
+                :to="{ name: 'new' }"
                 class="rounded-sm px-2 py-0.5 hover:bg-gray-100 dark:hover:bg-zinc-800"
               >
                 New
               </router-link>
-              <router-link @click="openMenu" :to="{name: 'hot'}"
+              <router-link
+                @click="openMenu"
+                :to="{ name: 'hot' }"
                 class="rounded-sm px-2 py-0.5 hover:bg-gray-100 dark:hover:bg-zinc-800"
               >
                 Hot
@@ -128,7 +135,9 @@
               >
                 User Settings
               </p>
-              <router-link @click="openMenu" :to="{name: 'submit'}"
+              <router-link
+                @click="openMenu"
+                :to="{ name: 'submit' }"
                 class="flex rounded-sm px-2 py-0.5 hover:bg-gray-100 dark:hover:bg-zinc-800"
               >
                 Create Post
@@ -159,7 +168,7 @@
                 <input
                   ref="searchbarDiv"
                   v-model="searchValue"
-                  class="w-full rounded-2xl border-[#f6f7f8] bg-gray-100 py-2 pl-11 pr-4 text-xs font-normal text-gray-900 dark:text-gray-300 placeholder:text-xs placeholder:font-normal placeholder:text-zinc-500 hover:border-blue-500 focus:rounded-none focus:rounded-t-2xl focus:border-blue-500 focus:outline-none dark:border-[#343536] dark:bg-[#272729] dark:hover:border-gray-400 dark:focus:border-gray-400"
+                  class="w-full rounded-2xl border-[#f6f7f8] bg-gray-100 py-2 pl-11 pr-4 text-xs font-normal text-gray-900 placeholder:text-xs placeholder:font-normal placeholder:text-zinc-500 hover:border-blue-500 focus:rounded-none focus:rounded-t-2xl focus:border-blue-500 focus:outline-none dark:border-[#343536] dark:bg-[#272729] dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
                   placeholder="Search Rozkop"
                   type="text"
                 />
@@ -187,8 +196,9 @@
                 : 'hidden xxs:flex sm:hidden md:flex'
             "
           >
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
-              class="flex justify-center items-center my-2 w-20 overflow-hidden rounded-xl border border-blue-400 bg-white text-sm font-semibold text-[#0079d3] hover:bg-gray-50 dark:border-transparent dark:bg-[#272729] dark:text-white dark:hover:bg-[#333336]"
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+              class="my-2 flex w-20 items-center justify-center overflow-hidden rounded-xl border border-blue-400 bg-white text-sm font-semibold text-[#0079d3] hover:bg-gray-50 dark:border-transparent dark:bg-[#272729] dark:text-white dark:hover:bg-[#333336]"
             >
               Get App
             </a>
@@ -322,7 +332,7 @@
             <input
               ref="smallSearchbarDiv"
               v-model="searchValue"
-              class="w-full rounded-2xl border-[#f6f7f8] bg-gray-100 py-2 pl-11 pr-4 text-xs font-normal text-gray-900 dark:text-gray-300 placeholder:text-xs placeholder:font-normal placeholder:text-zinc-500 hover:border-blue-500 focus:rounded-none focus:rounded-t-2xl focus:border-blue-500 focus:outline-none dark:border-[#343536] dark:bg-[#272729] dark:hover:border-gray-400 dark:focus:border-gray-400"
+              class="w-full rounded-2xl border-[#f6f7f8] bg-gray-100 py-2 pl-11 pr-4 text-xs font-normal text-gray-900 placeholder:text-xs placeholder:font-normal placeholder:text-zinc-500 hover:border-blue-500 focus:rounded-none focus:rounded-t-2xl focus:border-blue-500 focus:outline-none dark:border-[#343536] dark:bg-[#272729] dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
               placeholder="Search Rozkop"
               type="text"
             />
@@ -420,17 +430,13 @@ onMounted(() => {
   }
 });
 
-
 function logOut() {
   axios
-    .post("http://localhost:8000/api/logout", "", {
-      headers: {
-        Authorization: `Bearer ${$cookies.get("auth_token")}`,
-      },
-    }).then(() => {
-    $cookies.remove("auth_token")
-    location.reload()
-  })
+    .post("/api/logout")
+    .then(() => {
+      $cookies.remove("auth_token");
+      location.reload();
+    });
 }
 
 function openAccount() {

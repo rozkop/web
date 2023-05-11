@@ -1,10 +1,10 @@
 <template>
-<div class="w-full flex h-16 sm:h-20 items-center justify-start" :style="{backgroundColor: color}">
-</div>
+  <div
+    class="flex h-16 w-full items-center justify-start sm:h-20"
+    :style="{ backgroundColor: color }"
+  ></div>
 </template>
 
 <script setup>
-
-defineProps(['color', 'community_name'])
-
+defineProps(["color"]);
 </script>

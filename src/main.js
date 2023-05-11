@@ -6,6 +6,14 @@ import VueCookies from 'vue-cookies';
 import { createPinia } from 'pinia';
 
 import router from './router';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:8000'
+
+const token = $cookies.get('auth_token');
+if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
 
 const app = createApp(App);
 

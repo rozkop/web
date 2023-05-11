@@ -5,10 +5,18 @@ import NewPostList from "../components/layout/NewPostList.vue";
 import HotPostList from "../components/layout/HotPostList.vue";
 import PostPage from "../views/PostPage.vue";
 import SubmitPostPage from "../views/SubmitPostPage.vue";
+import NotFound from "../components/UI/NotFound.vue";
+import CommunityPage from "../views/CommunityPage.vue";
+import UserSettingsPage from "../views/UserSettingsPage.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
+        {
+            path: '/:notFound(.*)',
+            name: 'not-found',
+            component: NotFound,
+        },
         {
           path: '/register',
           name: 'register',
@@ -18,6 +26,11 @@ const router = createRouter({
             path: '/login',
             name: 'login',
             component: LoginPage,
+        },
+        {
+          path: '/settings',
+          name: 'settings',
+          component: UserSettingsPage,
         },
         {
             path: '/',
@@ -43,6 +56,11 @@ const router = createRouter({
             name: 'submit',
             path: '/submit',
             component: SubmitPostPage,
+        },
+        {
+            name: 'community',
+            path: '/c/:community_name/:filter(hot|new)?',
+            component: CommunityPage
         }
     ],
 });

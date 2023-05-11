@@ -11,7 +11,7 @@ export function useAuth() {
   async function getUser() {
     if ($cookies.get("auth_token")) {
       await axios
-        .get("http://localhost:8000/api/user", {
+        .get("/api/user", {
           headers: {
             Authorization: `Bearer ${$cookies.get("auth_token")}`,
           },

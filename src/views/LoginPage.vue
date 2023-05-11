@@ -61,8 +61,8 @@ function logIn() {
   error.value = '';
   isLoading.value = true;
 
-  axios.get('http://localhost:8000/sanctum/csrf-cookie');
-  axios.post('http://localhost:8000/api/login', user).then(response => {
+  axios.get('/sanctum/csrf-cookie');
+  axios.post('/api/login', user).then(response => {
     if (response.data.data.token) {
       isLoading.value = false;
       $cookies.set('auth_token', response.data.data.token);
