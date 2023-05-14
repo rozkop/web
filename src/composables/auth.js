@@ -11,21 +11,18 @@ export function useAuth() {
   async function getUser() {
     if ($cookies.get("auth_token")) {
       await axios
-        .get("/api/user", {
-          headers: {
-            Authorization: `Bearer ${$cookies.get("auth_token")}`,
-          },
-        })
+        .get("/api/user")
         .then((response) => {
           userData.id = response.data.id;
           userData.name = response.data.name;
           userData.email = response.data.email;
-        }).catch(error => {
-            if (error.response.status === 401) {
-              $cookies.remove("auth_token");
-              location.reload();
-            }
-          })
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            $cookies.remove("auth_token");
+            location.reload();
+          }
+        });
     }
   }
 

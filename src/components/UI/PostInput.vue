@@ -1,9 +1,6 @@
 <template>
   <!-- Create Post Input -->
-  <div
-    :class="isAuth ? 'mt-4' : 'mt-1'"
-    class="flex items-center overflow-x-auto sm:justify-center"
-  >
+  <div class="flex items-center overflow-x-auto sm:justify-center">
     <div
       v-if="isAuth"
       class="scrollbar dark:dark-scrollbar flex h-16 w-full overflow-auto overflow-y-hidden rounded-md border border-gray-300 bg-white p-2 dark:border-[#343536] dark:bg-[#1a1a1b] sm:w-5/6"
@@ -34,13 +31,14 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
 import { useAuth } from "../../composables/auth";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 const { userData } = useAuth();
 
 const isAuth = ref(false);
 
 const router = useRouter();
+const route = useRoute();
 
 const avatarSrc = ref("");
 
@@ -53,7 +51,16 @@ const setAvatarSrc = () => {
 watch(userData, setAvatarSrc);
 
 function goToCreatePostPage() {
-  router.push({ name: "submit" });
+  if (route.params.community_slug) {
+    router.push({
+      name: "submit",
+      params: {
+        community_slug: route.params.community_slug,
+      },
+    });
+  } else {
+    router.push({ name: "submit" });
+  }
 }
 
 onMounted(() => {

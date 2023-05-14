@@ -1,6 +1,6 @@
 <template>
   <div
-    class="my-3 mt-4 hidden h-60 w-1/4 shrink-0 rounded border border-gray-300 bg-white p-3 dark:border-[#343536] dark:bg-[#1a1a1b] dark:text-zinc-200 md:flex lg:h-56"
+    class="hidden h-60 w-1/4 shrink-0 rounded border border-gray-300 bg-white p-3 dark:border-[#343536] dark:bg-[#1a1a1b] dark:text-zinc-200 md:flex lg:h-56"
   >
     <div class="flex w-full flex-col space-y-2">
       <div class="flex flex-col items-start space-y-2">
@@ -22,11 +22,11 @@
         >
           Create Post
         </router-link>
-        <button
-          class="w-full shrink-0 rounded-3xl border border-[#0079d3] bg-white py-1 font-semibold text-[#0079d3] hover:bg-gray-50 dark:bg-transparent"
+        <router-link :to="{ name: 'submit-community'}"
+          class="flex items-center justify-center w-full shrink-0 rounded-3xl border border-[#0079d3] bg-white py-1 font-semibold text-[#0079d3] hover:bg-gray-50 dark:bg-transparent"
         >
           Create Community
-        </button>
+        </router-link>
       </div>
     </div>
   </div>

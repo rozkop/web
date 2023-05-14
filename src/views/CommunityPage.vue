@@ -1,12 +1,17 @@
 <template>
-  <CommunityBackground :color="community.color"/>
+  <CommunityBackground :community="community"/>
+
   <section
     class="mx-auto my-6 flex w-full justify-between px-2 xs:px-3 md:w-5/6 lg:w-2/3"
   >
+
     <div class="w-full space-y-3">
+
+      <PostInput v-if="isAuth" />
 
         <!-- Filter tabs -->
         <div class="flex justify-center">
+
           <div
               class="flex w-full justify-start rounded-md border bg-transparent dark:border-zinc-700 xs:justify-evenly border-gray-300 bg-white p-3 dark:border-[#343536] dark:bg-[#1a1a1b] sm:w-5/6 sm:justify-start"
           >
@@ -70,15 +75,11 @@
         </div>
 
       <div v-for="post in posts" :key="post.id">
-        <ThePost :post="post" />
+        <ThePost @doFetchData="fetchCommunityPosts" :post="post" />
       </div>
     </div>
 
-    <div
-        class="hidden h-full w-1/4 shrink-0 rounded border border-gray-300 bg-white p-3 dark:border-[#343536] dark:bg-[#1a1a1b] dark:text-zinc-200 md:flex"
-    >
-      <CommunityInfoCard :community="community" />
-    </div>
+    <CommunityInfoCard v-if="community.id" :community="community" :userData="userData"/>
   </section>
 </template>
 
@@ -86,6 +87,16 @@
 import CommunityBackground from "../components/UI/CommunityBackground.vue";
 import CommunityInfoCard from "../components/UI/CommunityInfoCard.vue";
 import ThePost from "../components/UI/ThePost.vue";
+import PostInput from "../components/UI/PostInput.vue";
+
+import { useAuth } from "../composables/auth";
+const { userData } = useAuth();
+
+import { createToaster } from "@meforma/vue-toaster";
+const toaster = createToaster();
+
+import { useCommunityStore } from "../stores/CommunityStore";
+const communityStore = useCommunityStore();
 
 import axios from "axios";
 import {ref, onMounted } from "vue";
@@ -113,24 +124,39 @@ function changeFilter(newFilter) {
 
 function fetchCommunityPosts(filter = route.params.filter) {
   axios
-    .get("/api/c/" + route.params.community_name + '/' + filter)
+    .get("/api/c/" + route.params.community_slug + '/' + filter)
     .then((response) => {
-      console.log(response)
+
+      communityStore.changeCommunityName(response.data.data.Community.name);
+
       posts.value = response.data.data.Posts;
       posts.value.forEach((post) => {
         post.created_at = new Date(post.created_at).toLocaleDateString();
+        post.rating = JSON.parse(post.rating);
+        post.rating = (post.rating.like || 0) - (post.rating.dislike || 0);
       })
+
 
       community.value = response.data.data.Community;
       community.value.created_at = new Date(community.value.created_at).toLocaleDateString();
     })
     .catch((error) => {
-      console.log(error);
+      if (error.response.status === 404) {
+        router.push("/not-found");
+        toaster.error(`That community doesn't exist!`, {
+          position: "top",
+        });
+      }
     });
 }
 
+const isAuth = ref(false);
 
 onMounted(async () => {
   fetchCommunityPosts();
+
+  if ($cookies.get("auth_token")) {
+    isAuth.value = true;
+  }
 });
 </script>

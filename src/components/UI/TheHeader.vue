@@ -45,15 +45,16 @@
                 src="/src/assets/house-light.svg"
                 alt=""
               />
+
               <p
-                v-if="route.params.community_name"
-                class="mr-2 hidden truncate xxs:inline-block xs:hidden md:inline-block"
+                v-if="route.params.community_slug"
+                class="mr-2 mt-0.5 hidden truncate xxs:inline-block xs:hidden md:inline-block"
               >
-                c/{{ route.params.community_name }}
+                {{ communityStore.communityName }}
               </p>
               <p
                 v-else
-                class="mr-2 mt-1 hidden truncate xxs:inline-block xs:hidden md:inline-block"
+                class="mr-2 mt-0.5 hidden truncate xxs:inline-block xs:hidden md:inline-block"
               >
                 Home
               </p>
@@ -281,11 +282,11 @@
               <hr
                 class="mx-2 flex h-px border-0 bg-gray-200 dark:bg-gray-700 sm:hidden"
               />
-              <button
+              <router-link :to="{name: 'profile'}"
                 class="flex w-full shrink-0 justify-center px-3 py-2 hover:bg-gray-100 hover:dark:bg-[#272729] xs:justify-start"
               >
                 Profile
-              </button>
+              </router-link>
               <button
                 class="flex w-full shrink-0 justify-center px-3 py-2 hover:bg-gray-100 hover:dark:bg-[#272729] xs:justify-start"
                 @click="toggleDark()"
@@ -417,11 +418,17 @@ import {
 const router = useRouter();
 const route = useRoute();
 import { useAuth } from "../../composables/auth.js";
-import axios from "axios";
-
 const { userData } = useAuth();
+import axios from "axios";
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster();
+
 
 const isAuth = ref(false);
+
+import { useCommunityStore } from "../../stores/CommunityStore";
+const communityStore = useCommunityStore();
 
 onMounted(() => {
   if ($cookies.get("auth_token")) {
@@ -457,6 +464,13 @@ const isMenuOpened = ref(true);
 const menu = ref(null);
 onClickOutside(menu, () => (isMenuOpened.value = false));
 
+const searchValue = ref("");
+
+function removeSearchValue() {
+  searchValue.value = "";
+  isSearchbarOpened.value = !isSearchbarOpened.value;
+}
+
 function openSearchbar() {
   isSearchbarOpened.value = !isSearchbarOpened.value;
 }
@@ -465,12 +479,6 @@ const isSearchbarOpened = ref(false);
 const searchbar = ref(null);
 onClickOutside(searchbar, () => (isSearchbarOpened.value = false));
 
-const searchValue = ref("");
-
-function removeSearchValue() {
-  searchValue.value = "";
-  isSearchbarOpened.value = !isSearchbarOpened.value;
-}
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);
