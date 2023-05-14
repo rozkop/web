@@ -6,6 +6,7 @@ export function useAuth() {
     id: "",
     name: "",
     email: "",
+    role: "",
   });
 
   async function getUser() {
@@ -13,9 +14,11 @@ export function useAuth() {
       await axios
         .get("/api/user")
         .then((response) => {
+          console.log(response)
           userData.id = response.data.id;
           userData.name = response.data.name;
           userData.email = response.data.email;
+
         })
         .catch((error) => {
           if (error.response.status === 401) {

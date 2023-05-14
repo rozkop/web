@@ -19,7 +19,7 @@
         </p>
         <button
           @click="removeCommunity"
-          class="flex items-center rounded-xl border border-zinc-200 bg-zinc-100 p-1 hover:bg-zinc-200"
+          class="flex items-center rounded-xl border border-zinc-200 bg-zinc-100 p-1 hover:bg-zinc-200 dark:border-transparent dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700"
           v-if="community.user.id === userData.id"
         >
           <img
@@ -42,6 +42,9 @@
 </template>
 
 <script setup>
+import { useDark } from "@vueuse/core";
+const isDark = useDark();
+
 import { createToaster } from "@meforma/vue-toaster";
 
 const toaster = createToaster();

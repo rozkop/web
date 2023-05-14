@@ -46,8 +46,8 @@ import axios from "axios";
 
 import { defineProps, defineEmits } from "vue";
 
-const props = defineProps(["post"]);
 const emit = defineEmits('doCloseModal')
+const props = defineProps(["post"]);
 
 import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster();
@@ -58,6 +58,7 @@ const route = useRoute();
 
 function closeModal() {
   emit('doCloseModal');
+
 }
 
 function editPost() {

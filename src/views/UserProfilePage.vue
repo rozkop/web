@@ -11,7 +11,7 @@
       <div
         class="flex w-full flex-col space-y-4 rounded border border-zinc-200 bg-white px-4 pb-4 pt-2 dark:border-transparent dark:bg-zinc-800"
       >
-        <div class="border-b border-gray-200 dark:border-gray-700">
+        <div class="border-b border-zinc-200 dark:border-zinc-700">
           <ul
             class="flex flex-wrap justify-center text-center text-sm font-medium text-zinc-800 dark:text-zinc-300 sm:justify-start"
           >

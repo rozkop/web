@@ -8,7 +8,7 @@ import { createPinia } from 'pinia';
 import router from './router';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8000'
+axios.defaults.baseURL = 'https://4a7f-178-43-138-218.ngrok-free.app'
 
 const token = $cookies.get('auth_token');
 if (token) {

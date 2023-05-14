@@ -10,8 +10,8 @@
     }"
     v-for="post in posts"
   >
-    <div class="w-full bg-zinc-100 hover:bg-zinc-50 rounded px-4 py-2">
-      <p class="break-words font-semibold text-xxs">c/{{ post.community.name }}</p>
+    <div class="w-full bg-zinc-100 dark:bg-[#1e1e20] dark:text-zinc-300 hover:bg-zinc-50 rounded px-4 py-2">
+      <p class="break-words font-semibold text-xxs text-[#0079d3] dark:text-[#ff6542]">c/{{ post.community.name }}</p>
       <h1 class="break-words font-semibold">{{ post.title }}</h1>
       <p class="break-words font-semibold text-xxs">
         Posted by u/{{ post.user.name }} on

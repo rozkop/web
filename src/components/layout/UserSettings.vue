@@ -1,19 +1,19 @@
 <template>
   <div class="mt-4 w-full">
-    <div class="rounded border border-zinc-200 bg-white p-4">
-      <div class="flex w-full flex-col md:w-2/3 lg:w-1/2">
-        <div class="flex flex-col">
+    <div class="rounded border border-zinc-200 bg-white dark:bg-zinc-800 dark:border-transparent p-4">
+      <div class="flex w-full dark:text-zinc-200 flex-col md:w-2/3 lg:w-1/2">
+        <div class="flex flex-col ">
           <h1 class="font-semibold">Gender</h1>
           <input
             v-model="userData.gender"
             :placeholder="user.gender"
-            class="peer block w-full appearance-none border-0 border-b-2 border-zinc-200 bg-transparent px-0 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-gray-200 focus:outline-none focus:ring-0 dark:border-gray-700 dark:text-gray-400"
+            class="peer block w-full appearance-none border-0 border-b-2 border-zinc-200 bg-transparent px-0 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-200 focus:outline-none focus:ring-0 dark:border-zinc-700 dark:text-zinc-400"
           />
         </div>
         <div class="flex w-full justify-end md:justify-start">
           <button
             @click="submitGender"
-            class="mt-6 rounded-xl bg-[#0079d3] px-4 py-2 font-semibold text-white text-xs"
+            class="mt-6 rounded-xl bg-[#0079d3] dark:bg-[#ff6542] dark:hover:bg-[#ff552e] px-4 py-2 font-semibold text-white text-xs"
           >
             Change gender
           </button>
@@ -23,7 +23,7 @@
           <h1 class="mt-8 mb-2 font-semibold">Country</h1>
           <select
             v-model="userData.country"
-            class="w-full rounded border border-gray-300 px-3 py-2 pr-8 leading-tight focus:border-gray-500 focus:outline-none"
+            class="w-full dark:bg-[#1e1e20] dark:border-transparent rounded border border-zinc-300 px-3 py-2 pr-8 leading-tight focus:border-zinc-500 focus:outline-none"
           >
             <option value="" selected>{{ user.country }}</option>
             <option v-for="country in sortedCountries">{{ country }}</option>
@@ -32,7 +32,7 @@
         <div class="flex w-full justify-end md:justify-start">
           <button
             @click="submitCountry"
-            class="mt-6 rounded-xl bg-[#0079d3] px-4 py-2 font-semibold text-white text-xs"
+            class="mt-6 rounded-xl bg-[#0079d3] dark:bg-[#ff6542] dark:hover:bg-[#ff552e] px-4 py-2 font-semibold text-white text-xs"
           >
             Change country
           </button>

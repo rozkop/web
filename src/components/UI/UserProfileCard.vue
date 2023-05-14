@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded shrink-0  border border-zinc-200 bg-white p-4 hover:bg-zinc-100 cursor-pointer">
+  <div class="rounded shrink-0 shadow border-zinc-200 bg-white dark:bg-[#303034] dark:hover:border-transparent dark:hover:bg-zinc-800 dark:border-zinc-600 p-4 dark:text-zinc-200 hover:bg-zinc-100 cursor-pointer">
       <div class="flex justify-between items-center">
         <h1 class="text-lg font-semibold">{{ title }}</h1>
         <img

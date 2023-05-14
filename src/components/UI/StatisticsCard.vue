@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-w-[14rem] rounded border border-zinc-200 bg-zinc-100 items-center m-2">
+  <div class="flex min-w-[14rem] rounded border border-zinc-200 bg-zinc-100 dark:text-zinc-300 dark:bg-[#1e1e20] dark:border-transparent items-center m-2">
     <div class="flex p-3">
       <img
           src="/src/assets/star.svg"

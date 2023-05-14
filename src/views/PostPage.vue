@@ -2,7 +2,6 @@
   <EditPostModal @doCloseModal="openEditModal" v-if="post.id && isEditModalOpened" :post="post"/>
   <CommunityBackground v-if="post.id" :community="post.community" />
 
-  <button @click="openEditModal">Otwórz</button>
   <section
     v-if="post.id"
     class="mx-auto my-6 flex w-full justify-between px-2 xs:px-3 lg:w-11/12"
@@ -189,6 +188,28 @@
                       src="/src/assets/flag-light.svg"
                       alt=""
                       class="h-5"
+                    />
+                  </button>
+                </div>
+                <div
+                    v-else
+                    class="flex shrink-0 rounded p-1 px-2"
+                >
+                  <button
+                      @click="openEditModal"
+                      class="rounded px-2 py-0.5 hover:bg-zinc-300 dark:hover:bg-zinc-800"
+                  >
+                    <img
+                        v-if="!isDark"
+                        src="/src/assets/edit-black.svg"
+                        alt=""
+                        class="h-5"
+                    />
+                    <img
+                        v-if="isDark"
+                        src="/src/assets/edit-light.svg"
+                        alt=""
+                        class="h-5"
                     />
                   </button>
                 </div>
@@ -428,8 +449,7 @@ function fetchData() {
       comments.value.forEach((comment) => {
         comment.created_at = new Date(comment.created_at).toLocaleString();
         comment.rating = JSON.parse(comment.rating);
-        comment.rating =
-          (comment.rating.like || 0) - (comment.rating.dislike || 0);
+        comment.rating = (comment.rating.like || 0) - (comment.rating.dislike || 0);
       });
 
       router.push({
@@ -499,6 +519,7 @@ function commentVoteDown(id) {
 const isEditModalOpened = ref(false);
 function openEditModal() {
   isEditModalOpened.value = !isEditModalOpened.value;
+  fetchData();
 }
 
 onMounted(() => {

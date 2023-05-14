@@ -10,7 +10,7 @@
     }"
       v-for="community in communities"
   >
-    <div class="flex flex-col w-full bg-zinc-100 hover:bg-zinc-50 rounded px-4 py-2">
+    <div class="flex mb-8 flex-col w-full bg-zinc-100 hover:bg-zinc-50 dark:bg-[#1e1e20] dark:text-zinc-300 rounded px-4 py-2">
 
       <div class="flex items-center">
         <img
@@ -19,7 +19,7 @@
             alt=""
             class="h-4 mr-2"
         />
-        <h1 class="break-words font-semibold">{{ community.name }}</h1>
+        <h1 class="break-words font-semibold text-[#0079d3] dark:text-[#ff6542]">{{ community.name }}</h1>
       </div>
 
       <p class="break-words text-xxs">

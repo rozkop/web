@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4 w-full">
-    <div class="flex justify-center rounded border border-zinc-200 bg-white p-4">
+    <div class="flex justify-center rounded border border-zinc-200 dark:bg-zinc-800 dark:border-transparent bg-white p-4">
       <div class="flex justify-center flex-wrap">
 
         <StatisticsCard :rating="statistics.posts" :title="'Your posts'" />
