@@ -1,5 +1,9 @@
 <template>
-  <EditPostModal @doCloseModal="openEditModal" v-if="post.id && isEditModalOpened" :post="post"/>
+  <EditPostModal
+    @doCloseModal="openEditModal"
+    v-if="post.id && isEditModalOpened"
+    :post="post"
+  />
   <CommunityBackground v-if="post.id" :community="post.community" />
 
   <section
@@ -191,25 +195,22 @@
                     />
                   </button>
                 </div>
-                <div
-                    v-else
-                    class="flex shrink-0 rounded p-1 px-2"
-                >
+                <div v-else class="flex shrink-0 rounded p-1 px-2">
                   <button
-                      @click="openEditModal"
-                      class="rounded px-2 py-0.5 hover:bg-zinc-300 dark:hover:bg-zinc-800"
+                    @click="openEditModal"
+                    class="rounded px-2 py-0.5 hover:bg-zinc-300 dark:hover:bg-zinc-800"
                   >
                     <img
-                        v-if="!isDark"
-                        src="/src/assets/edit-black.svg"
-                        alt=""
-                        class="h-5"
+                      v-if="!isDark"
+                      src="/src/assets/edit-black.svg"
+                      alt=""
+                      class="h-5"
                     />
                     <img
-                        v-if="isDark"
-                        src="/src/assets/edit-light.svg"
-                        alt=""
-                        class="h-5"
+                      v-if="isDark"
+                      src="/src/assets/edit-light.svg"
+                      alt=""
+                      class="h-5"
                     />
                   </button>
                 </div>
@@ -395,14 +396,16 @@ function removePost() {
 }
 
 function removeComment(commentId) {
-  axios.delete("/api/post/comments/" + commentId + "/delete").then(() => {
-    const commentIndex = comments.value.findIndex((c) => c.id === commentId);
-    comments.value.splice(commentIndex, 1);
-    post.value.count_comments--;
-    toaster.success(`Comment removed!`, {
-      position: "top",
+  axios
+    .delete("/api/post/" + post.value.id + "/comments/" + commentId + "/delete")
+    .then(() => {
+      const commentIndex = comments.value.findIndex((c) => c.id === commentId);
+      comments.value.splice(commentIndex, 1);
+      post.value.count_comments--;
+      toaster.success(`Comment removed!`, {
+        position: "top",
+      });
     });
-  });
 }
 
 function submitComment() {
@@ -426,8 +429,6 @@ function fetchData() {
   axios
     .get("/api/post/" + route.params.id)
     .then((response) => {
-      console.log(response);
-
       communityStore.changeCommunityName(
         response.data.data.Post.community.name
       );
@@ -449,7 +450,8 @@ function fetchData() {
       comments.value.forEach((comment) => {
         comment.created_at = new Date(comment.created_at).toLocaleString();
         comment.rating = JSON.parse(comment.rating);
-        comment.rating = (comment.rating.like || 0) - (comment.rating.dislike || 0);
+        comment.rating =
+          (comment.rating.like || 0) - (comment.rating.dislike || 0);
       });
 
       router.push({
@@ -463,12 +465,11 @@ function fetchData() {
     })
     .finally(() => {
       isCommentsChanged.value = !isCommentsChanged.value;
-      console.log("zmieniono na tru");
     })
     .catch((error) => {
       isLoading.value = false;
 
-      if (error.status === 404) {
+      if (error.response.status === 404) {
         router.push("/not-found");
       }
     });
@@ -495,9 +496,8 @@ function commentVoteUp(id) {
         comments.value[id].id +
         "/react/like"
     )
-    .then((response) => {
+    .then(() => {
       fetchData();
-      console.log(response);
     });
 }
 
@@ -510,13 +510,13 @@ function commentVoteDown(id) {
         comments.value[id].id +
         "/react/dislike"
     )
-    .then((response) => {
+    .then(() => {
       fetchData();
-      console.log(response);
     });
 }
 
 const isEditModalOpened = ref(false);
+
 function openEditModal() {
   isEditModalOpened.value = !isEditModalOpened.value;
   fetchData();

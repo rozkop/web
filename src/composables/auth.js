@@ -14,11 +14,12 @@ export function useAuth() {
       await axios
         .get("/api/user")
         .then((response) => {
-          console.log(response)
-          userData.id = response.data.id;
-          userData.name = response.data.name;
-          userData.email = response.data.email;
-
+          userData.id = response.data.data.id;
+          userData.name = response.data.data.name;
+          userData.email = response.data.data.email;
+          if (response.data.data.roles.includes("admin")) {
+            userData.role = "admin";
+          }
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -32,5 +33,5 @@ export function useAuth() {
   onMounted(async () => {
     await getUser();
   });
-  return { userData };
+  return { userData, getUser };
 }

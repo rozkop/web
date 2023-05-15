@@ -56,15 +56,15 @@ const router = useRouter();
 const community = reactive({
   name: "",
   description: "",
-  color: "",
+  color: "#d3d3d3",
 });
 
 function submitCommunity() {
   axios
-    .put("/api/c/dupa/edit", {
+    .post("/api/c/create", {
       name: community.name,
       description: community.description,
-      color: community.color
+      color: community.color,
     })
     .then((response) => {
       toaster.success(`Community created!`, {

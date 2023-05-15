@@ -106,6 +106,7 @@ import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
 
 import { useCommunityStore } from "../stores/CommunityStore";
+
 const communityStore = useCommunityStore();
 
 import { createToaster } from "@meforma/vue-toaster";
@@ -143,10 +144,6 @@ function submitPost() {
         text: post.text,
       })
       .then((response) => {
-        console.log(response);
-
-
-
         toaster.success(`Post created!`, {
           position: "top",
         });

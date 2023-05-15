@@ -43,6 +43,7 @@
 
 <script setup>
 import { useDark } from "@vueuse/core";
+
 const isDark = useDark();
 
 import { createToaster } from "@meforma/vue-toaster";

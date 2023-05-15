@@ -22,8 +22,9 @@
         >
           Create Post
         </router-link>
-        <router-link :to="{ name: 'submit-community'}"
-          class="flex items-center justify-center w-full shrink-0 rounded-3xl border border-[#0079d3] bg-white py-1 font-semibold text-[#0079d3] hover:bg-gray-50 dark:bg-transparent"
+        <router-link
+          :to="{ name: 'submit-community' }"
+          class="flex w-full shrink-0 items-center justify-center rounded-3xl border border-[#0079d3] bg-white py-1 font-semibold text-[#0079d3] hover:bg-gray-50 dark:bg-transparent"
         >
           Create Community
         </router-link>

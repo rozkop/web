@@ -23,7 +23,6 @@
         />
       </router-link>
 
-      <!-- Menu -->
       <div
         ref="menu"
         v-if="isAuth"
@@ -81,7 +80,6 @@
           class="left-0 w-full xs:left-auto xs:w-fit"
           :class="isMenuOpened ? 'absolute' : 'hidden'"
         >
-          <!-- Dropdown menu -->
           <div
             class="absolute z-10 mt-6 w-full rounded-b-lg bg-white py-2 text-sm shadow dark:bg-[#1a1a1b] dark:text-gray-300 xs:w-64"
           >
@@ -97,16 +95,13 @@
               <p class="px-2 py-0.5 text-xxs font-semibold text-gray-400">
                 YOUR COMMUNITIES
               </p>
-              <p
-                class="rounded-sm px-2 py-0.5 hover:bg-gray-100 dark:hover:bg-zinc-800"
+              <router-link
+                @click="openMenu"
+                :to="{ name: 'submit-community' }"
+                class="flex rounded-sm px-2 py-0.5 hover:bg-gray-100 dark:hover:bg-zinc-800"
               >
                 Create Community
-              </p>
-              <p
-                class="rounded-sm px-2 py-0.5 hover:bg-gray-100 dark:hover:bg-zinc-800"
-              >
-                c/poland
-              </p>
+              </router-link>
             </div>
             <div class="mt-4 flex w-full flex-col space-y-0.5 px-4">
               <p class="px-2 py-0.5 text-xxs font-semibold text-gray-400">
@@ -131,11 +126,13 @@
               <p class="px-2 py-0.5 text-xxs font-semibold text-gray-400">
                 OTHER
               </p>
-              <p
-                class="rounded-sm px-2 py-0.5 hover:bg-gray-100 dark:hover:bg-zinc-800"
+              <router-link
+                to="/profile/settings"
+                @click="openMenu"
+                class="flex rounded-sm px-2 py-0.5 hover:bg-gray-100 dark:hover:bg-zinc-800"
               >
                 User Settings
-              </p>
+              </router-link>
               <router-link
                 @click="openMenu"
                 :to="{ name: 'submit' }"
@@ -148,7 +145,6 @@
         </div>
       </div>
 
-      <!-- Searchbar -->
       <div
         class="ml-2 flex w-full justify-end md:ml-0 md:justify-evenly lg:justify-between"
       >
@@ -172,6 +168,7 @@
                   class="w-full rounded-2xl border-[#f6f7f8] bg-gray-100 py-2 pl-11 pr-4 text-xs font-normal text-gray-900 placeholder:text-xs placeholder:font-normal placeholder:text-zinc-500 hover:border-blue-500 focus:rounded-none focus:rounded-t-2xl focus:border-blue-500 focus:outline-none dark:border-[#343536] dark:bg-[#272729] dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
                   placeholder="Search Rozkop"
                   type="text"
+                  @keyup.enter="searchCommunity"
                 />
                 <button
                   @click="removeSearchValue"
@@ -282,7 +279,16 @@
               <hr
                 class="mx-2 flex h-px border-0 bg-gray-200 dark:bg-gray-700 sm:hidden"
               />
-              <router-link :to="{name: 'profile'}"
+              <router-link
+                v-if="userData.role === 'admin'"
+                :to="{ name: 'admin' }"
+                class="flex w-full shrink-0 justify-center px-3 py-2 hover:bg-gray-100 hover:dark:bg-[#272729] xs:justify-start"
+              >
+                Admin
+              </router-link>
+
+              <router-link
+                :to="{ name: 'profile' }"
                 class="flex w-full shrink-0 justify-center px-3 py-2 hover:bg-gray-100 hover:dark:bg-[#272729] xs:justify-start"
               >
                 Profile
@@ -318,7 +324,7 @@
       class="mx-auto flex w-full border-b border-[#f6f7f8] pb-2 pt-1 dark:border-[#343536] dark:bg-[#1a1a1b] sm:hidden"
     >
       <div
-        @click="isSearchbarOpened = !isSearchbarOpened"
+        @click="openSearchbar"
         class="w-full cursor-pointer rounded px-2 text-sm font-medium"
       >
         <div class="flex items-center">
@@ -336,6 +342,7 @@
               class="w-full rounded-2xl border-[#f6f7f8] bg-gray-100 py-2 pl-11 pr-4 text-xs font-normal text-gray-900 placeholder:text-xs placeholder:font-normal placeholder:text-zinc-500 hover:border-blue-500 focus:rounded-none focus:rounded-t-2xl focus:border-blue-500 focus:outline-none dark:border-[#343536] dark:bg-[#272729] dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
               placeholder="Search Rozkop"
               type="text"
+              @keyup.enter="searchCommunity"
             />
             <button
               @click="removeSearchValue"
@@ -353,7 +360,6 @@
       </div>
     </div>
 
-    <!-- Dynamic dropdown searchbar -->
     <div
       ref="searchbar"
       :class="isSearchbarOpened ? 'absolute' : 'hidden'"
@@ -368,35 +374,23 @@
     >
       <div class="rounded-b-md bg-white py-3 shadow-md dark:bg-[#272729]">
         <div class="w-full space-y-2 px-6">
-          <p class="px-2 text-xxs font-semibold text-gray-400">
-            TRENDING TODAY
-          </p>
-
           <div
-            class="cursor-pointer rounded p-2 hover:bg-gray-50 dark:hover:bg-[#3c3c3e]"
+            class="flex flex-col"
+            v-for="searchedCommunity in searchedCommunities"
+            :key="searchedCommunity.id"
           >
-            <h1 class="font-medium dark:text-gray-200">
-              Co się stało pod Legnicą?
-            </h1>
-            <p class="mt-1 text-sm text-gray-400">
-              Świadkowie, którzy na własne oczy zobaczyli jakie zdarzenie miało
-              tuż pod Legnicą (woj. dolnośląskie) są jednego zdania...
-            </p>
-            <p class="mt-2 text-xxs dark:text-gray-400">c/poland and more</p>
-          </div>
-
-          <div class="border-t border-[#f6f7f8] dark:border-[#343536]"></div>
-
-          <div
-            class="cursor-pointer rounded p-2 hover:bg-gray-50 dark:hover:bg-[#3c3c3e]"
-          >
-            <h1 class="font-medium dark:text-gray-200">
-              Zobacz przepis na pasztet!
-            </h1>
-            <p class="mt-1 text-sm text-gray-400">
-              Przepis na wegański pasztet...
-            </p>
-            <p class="mt-2 text-xxs dark:text-gray-400">c/vegan and more</p>
+            <router-link
+              @click="openSearchbar"
+              :to="{
+                name: 'community',
+                params: {
+                  community_slug: searchedCommunity.slug,
+                  filter: '',
+                },
+              }"
+            >
+              {{ searchedCommunity.name }}
+            </router-link>
           </div>
         </div>
       </div>
@@ -418,16 +412,17 @@ import {
 const router = useRouter();
 const route = useRoute();
 import { useAuth } from "../../composables/auth.js";
+
 const { userData } = useAuth();
 import axios from "axios";
 import { createToaster } from "@meforma/vue-toaster";
 
 const toaster = createToaster();
 
-
 const isAuth = ref(false);
 
 import { useCommunityStore } from "../../stores/CommunityStore";
+
 const communityStore = useCommunityStore();
 
 onMounted(() => {
@@ -438,12 +433,10 @@ onMounted(() => {
 });
 
 function logOut() {
-  axios
-    .post("/api/logout")
-    .then(() => {
-      $cookies.remove("auth_token");
-      location.reload();
-    });
+  axios.post("/api/logout").then(() => {
+    $cookies.remove("auth_token");
+    location.reload();
+  });
 }
 
 function openAccount() {
@@ -468,17 +461,35 @@ const searchValue = ref("");
 
 function removeSearchValue() {
   searchValue.value = "";
-  isSearchbarOpened.value = !isSearchbarOpened.value;
+  searchedCommunities.value = "";
+  openSearchbar();
+}
+
+const searchedCommunities = ref([]);
+
+function searchCommunity() {
+  axios.get("/api/c?search=" + searchValue.value).then((response) => {
+    isSearchbarOpened.value = !isSearchbarOpened.value;
+
+    if (response.data.length) {
+      searchedCommunities.value = response.data;
+    } else {
+      toaster.show(`No communities!`, {
+        position: "top-left",
+      });
+    }
+  });
 }
 
 function openSearchbar() {
-  isSearchbarOpened.value = !isSearchbarOpened.value;
+  if (searchedCommunities.value.length) {
+    isSearchbarOpened.value = !isSearchbarOpened.value;
+  }
 }
 
 const isSearchbarOpened = ref(false);
 const searchbar = ref(null);
 onClickOutside(searchbar, () => (isSearchbarOpened.value = false));
-
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);

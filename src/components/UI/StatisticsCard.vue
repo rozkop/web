@@ -1,11 +1,9 @@
 <template>
-  <div class="flex min-w-[14rem] rounded border border-zinc-200 bg-zinc-100 dark:text-zinc-300 dark:bg-[#1e1e20] dark:border-transparent items-center m-2">
+  <div
+    class="m-2 flex min-w-[14rem] items-center rounded border border-zinc-200 bg-zinc-100 dark:border-transparent dark:bg-[#1e1e20] dark:text-zinc-300"
+  >
     <div class="flex p-3">
-      <img
-          src="/src/assets/star.svg"
-          alt=""
-          class="h-12"
-      />
+      <img src="/src/assets/star.svg" alt="" class="h-12" />
     </div>
 
     <div class="flex flex-col">
@@ -18,5 +16,5 @@
 <script setup>
 import { defineProps } from "vue";
 
-defineProps(['title', 'rating'])
+defineProps(["title", "rating"]);
 </script>

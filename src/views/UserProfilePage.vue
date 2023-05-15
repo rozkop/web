@@ -85,14 +85,8 @@
       </div>
 
       <div v-if="route.name === 'profile'" class="mt-4 w-full space-y-2">
-        <UserProfileCard
-            @click="openList('posts')"
-            :title="'Posts'"
-        />
-        <UserPostList
-            v-if="isPostListOpened"
-            :posts="posts"
-        />
+        <UserProfileCard @click="openList('posts')" :title="'Posts'" />
+        <UserPostList v-if="isPostListOpened" :posts="posts" />
 
         <UserProfileCard
           @click="openList('communities')"
@@ -141,10 +135,10 @@ const route = useRoute();
 
 const user = ref([]);
 const statistics = reactive({
-  posts: '',
-  communities: '',
-  likedPosts: '',
-  likedCommunities: '',
+  posts: "",
+  communities: "",
+  likedPosts: "",
+  likedCommunities: "",
 });
 
 const posts = ref([]);
@@ -154,8 +148,6 @@ const likedCommunities = ref([]);
 
 function fetchUserResources() {
   axios.get("/api/user/show").then((response) => {
-    console.log(response);
-
     user.value = response.data.data.user;
     posts.value = response.data.data.user_posts;
     communities.value = response.data.data.user_communities;

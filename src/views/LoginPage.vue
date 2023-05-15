@@ -63,15 +63,18 @@ import { reactive, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
+import { createToaster } from "@meforma/vue-toaster";
+const toaster = createToaster();
+
 import {useDark } from "@vueuse/core";
 const isDark = useDark();
 
 const router = useRouter();
 
 const user = reactive({
-  name: 'Gall Anonim',
-  email: 'gall@anonim.pl',
-  password: 'password'
+  name: '',
+  email: '',
+  password: ''
 })
 
 const error = ref('');
@@ -96,6 +99,12 @@ function logIn() {
       isLoading.value = false;
       error.value = response.data.data.error;
     }
+  }).catch((error) => {
+    //mail error
+    isLoading.value = false;
+    toaster.success(`Bad credentials!`, {
+      position: "top",
+    });
   })
 }
 

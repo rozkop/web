@@ -9,13 +9,10 @@
 
       <PostInput v-if="isAuth" />
 
-        <!-- Filter tabs -->
         <div class="flex justify-center">
-
           <div
               class="flex w-full justify-start rounded-md border bg-transparent dark:border-zinc-700 xs:justify-evenly border-gray-300 bg-white p-3 dark:border-[#343536] dark:bg-[#1a1a1b] sm:w-5/6 sm:justify-start"
           >
-            <!--Desktop screen size-->
             <div
                 class="font-semibold text-zinc-600 dark:text-zinc-300 flex flex-wrap"
             >

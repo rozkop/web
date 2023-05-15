@@ -8,7 +8,7 @@
     >
       <div class="hidden shrink-0 flex-col items-center py-4 xs:flex xs:w-12">
         <button
-          @click="voteUp"
+          @click.once="voteUp"
           class="rounded hover:bg-blue-200 dark:hover:bg-blue-900"
         >
           <img
@@ -28,7 +28,7 @@
           {{ post.rating }}
         </div>
         <button
-          @click="voteDown"
+          @click.once="voteDown"
           class="rounded hover:bg-red-200 dark:hover:bg-red-900"
         >
           <img
@@ -53,7 +53,7 @@
             id: post.id,
             community_slug: post.community.slug,
             slug: post.slug,
-          }
+          },
         }"
         class="flex w-full flex-col"
       >
@@ -65,7 +65,7 @@
                 params: {
                   community_slug: post.community.slug,
                   filter: '',
-                }
+                },
               }"
               class="w-fit text-xs font-bold hover:underline"
               >c/{{ post.community.name }}
@@ -88,7 +88,7 @@
         >
           <div class="mr-2 flex xs:hidden">
             <button
-              @click.prevent="voteUp"
+              @click.once="voteUp"
               class="shrink-0 rounded hover:bg-blue-200 dark:hover:bg-blue-900"
             >
               <img
@@ -108,7 +108,7 @@
             <p class="mx-2 font-semibold">{{ post.rating }}</p>
 
             <button
-              @click.prevent="voteDown"
+              @click.once="voteDown"
               class="shrink-0 rounded hover:bg-red-200 dark:hover:bg-red-900"
             >
               <img
@@ -125,21 +125,23 @@
               />
             </button>
           </div>
-            <div class="flex rounded p-1 px-2">
-              <img
-                  v-if="!isDark"
-                  src="/src/assets/comment-black.svg"
-                  alt=""
-                  class="h-5"
-              />
-              <img
-                  v-if="isDark"
-                  src="/src/assets/comment-light.svg"
-                  alt=""
-                  class="h-5"
-              />
-              <span class="ml-1.5 break-all text-xs font-semibold">{{ post.count_comments }}</span>
-            </div>
+          <div class="flex rounded p-1 px-2">
+            <img
+              v-if="!isDark"
+              src="/src/assets/comment-black.svg"
+              alt=""
+              class="h-5"
+            />
+            <img
+              v-if="isDark"
+              src="/src/assets/comment-light.svg"
+              alt=""
+              class="h-5"
+            />
+            <span class="ml-1.5 break-all text-xs font-semibold">{{
+              post.count_comments
+            }}</span>
+          </div>
         </div>
       </router-link>
     </div>
@@ -150,23 +152,23 @@
 import { useDark } from "@vueuse/core/index";
 import axios from "axios";
 
-import { defineEmits } from 'vue';
-const emit = defineEmits('doFetchData');
+import { defineEmits } from "vue";
+
+const emit = defineEmits("doFetchData");
 
 const isDark = useDark();
 
 const props = defineProps(["post"]);
 
-
 function voteUp() {
   axios.put("/api/post/" + props.post.id + "/react/like").then(() => {
-    emit('doFetchData');
+    emit("doFetchData");
   });
 }
 
 function voteDown() {
   axios.put("/api/post/" + props.post.id + "/react/dislike").then(() => {
-    emit('doFetchData');
+    emit("doFetchData");
   });
 }
 </script>

@@ -71,6 +71,10 @@ import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
+import { createToaster } from "@meforma/vue-toaster";
+const toaster = createToaster();
+
+
 import { useDark } from "@vueuse/core";
 const isDark = useDark();
 
@@ -79,10 +83,10 @@ const router = useRouter();
 const githubRedirectUrl = axios.defaults.baseURL + '/api/login/github'
 
 const user = reactive({
-  name: 'Gall Anonim',
-  email: 'gall@anonim.pl',
-  password: 'password',
-  password_confirmation: 'password',
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
 })
 
 const errors = ref([]);
@@ -104,6 +108,10 @@ function signUp() {
     }
   }).catch(error => {
     isLoading.value = false;
+    toaster.success(`Registered!`, {
+      position: "top",
+    });
+    router.push({name: 'login'}); //happy path - mail error
     errors.value = error.response.data.errors;
   })
 }

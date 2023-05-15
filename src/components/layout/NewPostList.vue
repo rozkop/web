@@ -29,13 +29,12 @@ async function fetchData() {
   await axios
     .get("/api/")
     .then((response) => {
-      console.log(response)
       posts.value = response.data.data;
       posts.value.forEach((post) => {
         post.created_at = new Date(post.created_at).toLocaleDateString();
         post.rating = JSON.parse(post.rating);
         post.rating = (post.rating.like || 0) - (post.rating.dislike || 0);
-      })
+      });
     })
     .catch((error) => {
       console.log(error);

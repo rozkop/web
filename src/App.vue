@@ -6,12 +6,3 @@ import TheHeader from "./components/UI/TheHeader.vue";
   <TheHeader />
   <router-view></router-view>
 </template>
-
-
-<!--<style>-->
-
-<!--* {-->
-<!--  border: solid red 1px;-->
-<!--}-->
-
-<!--</style>-->
